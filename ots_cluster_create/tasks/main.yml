@@ -1,0 +1,114 @@
+---
+# ---------------------------------------------------------------------------------------
+- name: Verify Settings
+  include_tasks: verify.yml
+# ---------------------------------------------------------------------------------------
+- name: Add vCenter Credential
+  include_tasks: add_vcenter_credential.yml
+  when: 
+    - use_vcenter | bool
+    - hypervisor == "ESX"
+# ---------------------------------------------------------------------------------------
+- name: Add ESXi Host Credentials ( No vCenter )
+  include_tasks: add_credential.yml
+  with_items: "{{ esxi_hosts }}"
+  when: 
+    - not use_vcenter | bool
+    - hypervisor == "ESX"
+    - esxi_hosts != none
+# ---------------------------------------------------------------------------------------
+- name: Add KVM Host Credentials
+  include_tasks: add_credential.yml
+  with_items: "{{ kvm_hosts }}"
+  when: 
+    - hypervisor == "KVM"
+    - kvm_hosts != none
+# ---------------------------------------------------------------------------------------
+- name: Get Existing Host IDs
+  include_tasks: get_host_ids.yml
+# ---------------------------------------------------------------------------------------
+- name: Register ESXi Hosts ( vCenter )
+  include_tasks: register_esx_vcenter_host.yml
+  with_items: "{{ esxi_hosts }}"
+  when:
+    - hypervisor == "ESX"
+    - use_vcenter | bool
+    - esxi_hosts != none
+# ---------------------------------------------------------------------------------------
+- name: Register ESXi Hosts ( No vCenter )
+  include_tasks: register_host.yml
+  with_items: "{{ esxi_hosts }}"
+  when:
+    - hypervisor == "ESX"
+    - not use_vcenter | bool
+    - esxi_hosts != none
+# ---------------------------------------------------------------------------------------
+- name: Register KVM Hosts
+  include_tasks: register_host.yml
+  with_items: "{{ kvm_hosts }}"
+  when:
+    - hypervisor == "KVM"
+    - kvm_hosts != none
+# ---------------------------------------------------------------------------------------
+- name: Update Host IDs List
+  include_tasks: get_host_ids.yml
+# ---------------------------------------------------------------------------------------
+- name: Validate Internal Network
+  include_tasks: check_network.yml
+  when:
+    - run_net_check | bool
+    - node_count != 1
+# ---------------------------------------------------------------------------------------
+- name: Check for Existing Cluster
+  include_tasks: check_cluster.yml
+# ---------------------------------------------------------------------------------------
+- name: Create Cluster - {{ cluster_name }} x {{ node_count }} nodes
+  include_tasks: create_cluster.yml
+  when:
+    - cluster_new | bool
+# ---------------------------------------------------------------------------------------
+- name: Get Cluster ID - {{ cluster_name }}
+  include_tasks: get_cluster_id.yml
+# ---------------------------------------------------------------------------------------
+- name: Get Cluster State - {{ cluster_name }}
+  include_tasks: get_cluster_state.yml
+# ---------------------------------------------------------------------------------------
+- name: Get Node IDs
+  include_tasks: get_node_ids.yml
+  when:
+    - not cluster_deployed | bool
+# ---------------------------------------------------------------------------------------
+- name: Configure Nodes
+  include_tasks: configure_node.yml
+  loop: "{{ node_id_list }}"
+  loop_control:
+    loop_var: outeritem
+  when:
+    - not cluster_deployed | bool
+# ---------------------------------------------------------------------------------------
+- name: Update Node IDs
+  include_tasks: get_node_ids.yml
+  when:
+    - not cluster_deployed | bool
+# ---------------------------------------------------------------------------------------
+- name: Configure Networks
+  include_tasks: configure_node_network.yml
+  loop: "{{ node_id_list }}"
+  when:
+    - not cluster_deployed | bool
+# ---------------------------------------------------------------------------------------
+- name: Configure Storage Pools
+  include_tasks: configure_node_storage.yml
+  loop: "{{ node_id_list }}"
+  loop_control:
+    loop_var: outeritem
+  when:
+    - not cluster_deployed | bool
+# ---------------------------------------------------------------------------------------
+- name: Deploy Cluster
+  include_tasks: deploy_cluster.yml
+  when:
+    - not cluster_deployed | bool
+# ---------------------------------------------------------------------------------------
+# END PLAYBOOK
+# ---------------------------------------------------------------------------------------
