@@ -5,7 +5,7 @@
 #
 #    Example: 
 #
-#             ansible-playbook pb_ots_cluster.yml -e "id=ots1"
+#             ansible-playbook pb_ots_cluster.yml -e "id=2node"
 #
 ########################################################################################
 
