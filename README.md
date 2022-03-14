@@ -56,6 +56,34 @@ The role and associated components are provided as-is and are intended to provid
 19. Configure Storage Pools (configure_node_storage.yml)
 20. Deploy Cluster (deploy_cluster.yml)
 
+```mermaid
+flowchart TB
+    V1[/vars_files/]
+    T1["Verify Settings (vars)"]
+    D1{vCenter?}
+    T2[Add vCenter Credential]
+    T3[Add ESXi Host Credential]
+    T4[Get Host IDs]
+    T5[Register ESXi Hosts]
+    T6[Update Host IDs List]
+    T7{Cluster Exists?}
+    T8[Create Cluster]
+    T9[Get Node IDs]
+    T10[Configure Nodes]
+    T11[Configure Networks]
+    T12[Configure Storage Pools]
+    T13[Deploy Cluster]
+    V1 -.-> T1
+    T1--> D1
+    D1 --> |Yes| T2
+    D1 --> |No| T3
+    T2 --> T4
+    T3 --> T4 --> T5 --> T6 --> T7 
+    T7 --------> |Yes| X([Done])
+    T7 --> |No| T8
+    T8 --> T9 --> T10 --> T11 --> T12 --> T13 ---> X
+```
+
 ### Example Playbook
 <pre>
 - name: Create ONTAP Select Cluster
