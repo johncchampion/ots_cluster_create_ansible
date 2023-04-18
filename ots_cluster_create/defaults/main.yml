@@ -82,7 +82,6 @@ esxi_hosts:
 
 # ----------------------------------------------------------------------
 # Cluster Info
-# - Leave 'cluster_ontap_image' blank to use the latest ONTAP image
 # - Invalid or unreachable NTP and DNS servers will generate a warning 
 #   but not stop the cluster creation process
 # ----------------------------------------------------------------------
