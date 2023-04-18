@@ -7,7 +7,6 @@ deploy_pwd: ""
 vcenter_password: ""
 ontap_pwd: ""
 host_esx_password: ""
-host_kvm_password: ""
 
 # ------------------------------------------------------------------------
 # Configuration Settings
@@ -22,14 +21,6 @@ host_kvm_password: ""
 # - Make sure there are matching node details in the "Nodes" section
 # ------------------------------------------------------------------------
 node_count: 1
-
-# ------------------------------------------------------------------------
-# Hypervisor Type 
-# - Case sensitive
-# - ESX
-# - KVM
-# ------------------------------------------------------------------------
-hypervisor: ESX
 
 # ------------------------------------------------------------------------
 # true = Authenticate through vCenter | false = Authenticate host directly
@@ -80,16 +71,10 @@ vcenter_name: vc.vsphere.local
 
 # ----------------------------------------------------------------------
 # Hosts
-# - Create a host_name/host_login pair for EACH node in the avi_cluster
+# - Create a host_name/host_login pair for EACH node in the cluster
 # - Example: If you are building a 4-node cluster than 4 ESXi hosts
 # ----------------------------------------------------------------------
 esxi_hosts:
-  - host_name: 
-    host_login: 
-#  - host_name: 
-#    host_login: 
-
-kvm_hosts:
   - host_name: 
     host_login: 
 #  - host_name: 
@@ -138,7 +123,7 @@ cluster_nodes:
   - node_name: "{{ cluster_name }}-01"
     ipAddress: 
     storage_pool:
-    capacityTB: 3
+    capacityTB: 2
     host_name: 
 #  - node_name: "{{ cluster_name }}-02"
 #    ipAddress: 
