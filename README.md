@@ -97,4 +97,4 @@ flowchart TB
 **The 'tasks/main.yml' calls the required tasks based on the vars file settings**
 
 ### Known Issues
-*Changing the node names in the vars file does not work and will cause an error so leave as "{{ cluster_name }}-##"
+*Changing the node names in the vars file will cause an error so leave as "{{ cluster_name }}-##"
