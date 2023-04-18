@@ -7,22 +7,13 @@
   include_tasks: add_vcenter_credential.yml
   when: 
     - use_vcenter | bool
-    - hypervisor == "ESX"
 # ---------------------------------------------------------------------------------------
 - name: Add ESXi Host Credentials ( No vCenter )
   include_tasks: add_credential.yml
   with_items: "{{ esxi_hosts }}"
   when: 
     - not use_vcenter | bool
-    - hypervisor == "ESX"
     - esxi_hosts != none
-# ---------------------------------------------------------------------------------------
-- name: Add KVM Host Credentials
-  include_tasks: add_credential.yml
-  with_items: "{{ kvm_hosts }}"
-  when: 
-    - hypervisor == "KVM"
-    - kvm_hosts != none
 # ---------------------------------------------------------------------------------------
 - name: Get Existing Host IDs
   include_tasks: get_host_ids.yml
@@ -31,7 +22,6 @@
   include_tasks: register_esx_vcenter_host.yml
   with_items: "{{ esxi_hosts }}"
   when:
-    - hypervisor == "ESX"
     - use_vcenter | bool
     - esxi_hosts != none
 # ---------------------------------------------------------------------------------------
@@ -39,16 +29,8 @@
   include_tasks: register_host.yml
   with_items: "{{ esxi_hosts }}"
   when:
-    - hypervisor == "ESX"
     - not use_vcenter | bool
     - esxi_hosts != none
-# ---------------------------------------------------------------------------------------
-- name: Register KVM Hosts
-  include_tasks: register_host.yml
-  with_items: "{{ kvm_hosts }}"
-  when:
-    - hypervisor == "KVM"
-    - kvm_hosts != none
 # ---------------------------------------------------------------------------------------
 - name: Update Host IDs List
   include_tasks: get_host_ids.yml
