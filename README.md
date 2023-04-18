@@ -11,7 +11,7 @@ The 'default/main.yml' is well commented, covering each var with a description, 
 The role and associated components are provided as-is and are intended to provide an example of utilizing the ONTAP collection in Ansible. Fully test in a non-production enviornment before implementing. Feel free to utilize/modify any portion of code for your specific needs.
 
 ### Requirements
-* ONTAP Select 9.7 or later
+* ONTAP Select 9.8 or later
 * Ansible 2.10.3 or later
 * NetApp Library: netapp-lib (pip3 install --upgrade netapp-lib)
 * Ansible Galaxy Collection: netapp.ontap (https://galaxy.ansible.com/netapp/ontap)
@@ -19,14 +19,13 @@ The role and associated components are provided as-is and are intended to provid
 
 ### NOTES
 **The NetApp ONTAP collection (netapp.ontap) includes several roles and there are related articles available on netapp.io. The roles are located in '{installation_path}/collections/ansible_collections/netapp/ontap/roles'.**
-**ONTAP 9.7 is unsupported on vSphere 7.0 - but it'll still install with a warning event in Deploy - ONTAP Select 9.8 will have support for vSphere 7.x**
 
 ### Dev/Test Environment
 * CentOS 8.2
 * Ansible 2.10.3
 * netapp-lib 
 * netapp.ontap collection 20.11.0
-* ONTAP Select v9.7
+* ONTAP Select v9.12
 * VMware vSphere 6.7 and 7.0
 
 ### Usage
@@ -38,49 +37,47 @@ The role and associated components are provided as-is and are intended to provid
 1. Verify Settings (verify.yml)
 2. Add vCenter Credential (add_vcenter_credential.yml)
 3. Add ESXi Host Credentials - No vCenter (add_credential.yml)
-4. Add KVM Host Credentials (add_credential.yml)
-5. Get Existing Host IDs (get_host_ids.yml)
-6. Register ESXi Hosts - vCenter (register_esx_vcenter_host.yml)
-7. Register ESXi Hosts - No vCenter (register_host.yml)
-8. Register KVM Hosts (register_host.yml)
-9. Update Host IDs List (get_host_ids.yml)
-10. Validate Internal Network (check_network.yml)
-11. Check for Existing Cluster (check_cluster.yml)
-12. Create Cluster (create_cluster.yml)
-13. Get Cluster ID (get_cluster_id.yml)
-14. Get Cluster State (get_cluster_state.yml)
-15. Get Node IDs (get_node_ids.yml)
-16. Configure Nodes (configure_node.yml)
-17. Update Node IDs (get_node_ids.yml)
-18. Configure Networks (configure_node_network.yml)
-19. Configure Storage Pools (configure_node_storage.yml)
-20. Deploy Cluster (deploy_cluster.yml)
+4. Get Existing Host IDs (get_host_ids.yml)
+5. Register ESXi Hosts - vCenter (register_esx_vcenter_host.yml)
+6. Register ESXi Hosts - No vCenter (register_host.yml)
+7. Update Host IDs List (get_host_ids.yml)
+8. Validate Internal Network (check_network.yml)
+9. Check for Existing Cluster (check_cluster.yml)
+10. Create Cluster (create_cluster.yml)
+11. Get Cluster ID (get_cluster_id.yml)
+12. Get Cluster State (get_cluster_state.yml)
+13. Get Node IDs (get_node_ids.yml)
+14. Configure Nodes (configure_node.yml)
+15. Update Node IDs (get_node_ids.yml)
+16. Configure Networks (configure_node_network.yml)
+17. Configure Storage Pools (configure_node_storage.yml)
+18. Deploy Cluster (deploy_cluster.yml)
 
 ```mermaid
 flowchart TB
     V1[/vars_files/]
-    T1["Verify Settings (vars)"]
+    T1[["Verify Settings (vars)"]]
     D1{vCenter?}
-    T2[Add vCenter Credential]
-    T3[Add ESXi Host Credential]
-    T4[Get Host IDs]
-    T5[Register ESXi Hosts]
-    T6[Update Host IDs List]
-    T7{Cluster Exists?}
-    T8[Create Cluster]
-    T9[Get Node IDs]
-    T10[Configure Nodes]
-    T11[Configure Networks]
-    T12[Configure Storage Pools]
-    T13[Deploy Cluster]
+    T2[[Add vCenter Credential]]
+    T3[[Add ESXi Host Credential]]
+    T4[[Get Host IDs]]
+    T5[[Register ESXi Hosts]]
+    T6[[Update Host IDs List]]
+    D2{Cluster Exists?}
+    T8[[Create Cluster]]
+    T9[[Get Node IDs]]
+    T10[[Configure Nodes]]
+    T11[[Configure Networks]]
+    T12[[Configure Storage Pools]]
+    T13[[Deploy Cluster]]
     V1 -.-> T1
     T1--> D1
     D1 --> |Yes| T2
     D1 --> |No| T3
     T2 --> T4
-    T3 --> T4 --> T5 --> T6 --> T7 
-    T7 --------> |Yes| X([Done])
-    T7 --> |No| T8
+    T3 --> T4 --> T5 --> T6 --> D2 
+    D2 --------> |Yes| X([Done])
+    D2 --> |No| T8
     T8 --> T9 --> T10 --> T11 --> T12 --> T13 ---> X
 ```
 
