@@ -22,10 +22,11 @@ The role and associated components are provided as-is and are intended to provid
 
 ### Dev/Test Environment
 * CentOS 8.2
-* Ansible 2.10.3
-* netapp-lib 
-* netapp.ontap collection 20.11.0
-* ONTAP Select v9.12
+* Ansible 2.12.1
+* Python 3.9
+* netapp-lib 2021.6.25
+* netapp.ontap collection 22.5.0
+* ONTAP Select 9.12.1
 * VMware vSphere 6.7 and 7.0
 
 ### Usage
