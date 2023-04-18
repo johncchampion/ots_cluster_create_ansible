@@ -34,24 +34,25 @@ The role and associated components are provided as-is and are intended to provid
 * A sample playbook and vars files for 1 and 2 node clusters are provided as a reference
 
 ### Workflow Tasks
-1. Verify Settings (verify.yml)
-2. Add vCenter Credential (add_vcenter_credential.yml)
-3. Add ESXi Host Credentials - No vCenter (add_credential.yml)
-4. Get Existing Host IDs (get_host_ids.yml)
-5. Register ESXi Hosts - vCenter (register_esx_vcenter_host.yml)
-6. Register ESXi Hosts - No vCenter (register_host.yml)
-7. Update Host IDs List (get_host_ids.yml)
-8. Validate Internal Network (check_network.yml)
-9. Check for Existing Cluster (check_cluster.yml)
-10. Create Cluster (create_cluster.yml)
-11. Get Cluster ID (get_cluster_id.yml)
-12. Get Cluster State (get_cluster_state.yml)
-13. Get Node IDs (get_node_ids.yml)
-14. Configure Nodes (configure_node.yml)
-15. Update Node IDs (get_node_ids.yml)
-16. Configure Networks (configure_node_network.yml)
-17. Configure Storage Pools (configure_node_storage.yml)
-18. Deploy Cluster (deploy_cluster.yml)
+1. Edit 'vars_ots_cluster_create_pwd.yml'
+2. Verify Settings (verify.yml)
+3. Add vCenter Credential (add_vcenter_credential.yml)
+4. Add ESXi Host Credentials - No vCenter (add_credential.yml)
+5. Get Existing Host IDs (get_host_ids.yml)
+6. Register ESXi Hosts - vCenter (register_esx_vcenter_host.yml)
+7. Register ESXi Hosts - No vCenter (register_host.yml)
+8. Update Host IDs List (get_host_ids.yml)
+9. Validate Internal Network (check_network.yml)
+10. Check for Existing Cluster (check_cluster.yml)
+11. Create Cluster (create_cluster.yml)
+12. Get Cluster ID (get_cluster_id.yml)
+13. Get Cluster State (get_cluster_state.yml)
+14. Get Node IDs (get_node_ids.yml)
+15. Configure Nodes (configure_node.yml)
+16. Update Node IDs (get_node_ids.yml)
+17. Configure Networks (configure_node_network.yml)
+18. Configure Storage Pools (configure_node_storage.yml)
+19. Deploy Cluster (deploy_cluster.yml)
 
 ```mermaid
 flowchart TB
