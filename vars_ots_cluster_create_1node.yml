@@ -8,11 +8,6 @@
 # -------------------------------
 node_count: 1
 
-# -------------------------------------------
-# Hypervisor Type - ESX | KVM (case sensitve)
-# -------------------------------------------
-hypervisor: ESX
-
 # ------------------------------------------------------------------------
 # true = Authenticate through vCenter | false = Authenticate host directly
 # Note: if esxi host is managed by vCenter then you MUST use vCenter
@@ -66,8 +61,6 @@ vcenter_name: vc.netapp.local
 esxi_hosts:
   - host_name: esxi1.netapp.local
     host_login: root
-
-kvm_hosts:
 
 # ------------
 # Cluster Info
